@@ -120,6 +120,15 @@
 #   By default Redis Cluster nodes stop accepting queries if they detect there
 #   is at least an hash slot uncovered.
 #
+# [*cluster_announce_ip*]
+#   Configure cluster-announce-ip for Redis Cluster
+#
+# [*cluster_announce_port*]
+#   Configure cluster-announce-port for Redis Cluster
+#
+# [*cluster_announce_bus_port*]
+#   Configure cluster-announce-bus-port for Redis Cluster
+#
 # [*include*]
 #   Array of extra configs to include Example: [ '/etc/redis/local.conf' ]
 
@@ -172,6 +181,9 @@ define redis::server (
   $cluster_slave_validity_factor = undef,
   $cluster_migration_barrier     = undef,
   $cluster_require_full_coverage = true,
+  $cluster_announce_ip           = undef,
+  $cluster_announce_port         = undef,
+  $cluster_announce_bus_port     = undef,
   $protected_mode                = undef,
   $include                       = [],
 ) {
