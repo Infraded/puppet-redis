@@ -13,6 +13,10 @@
 #   Path for log. Full log path is <sentinel_log_dir>/redis-sentinel_<redis_name>.log. Default: /var/log
 # [*sentinel_pid_dir*]
 #   Path for pid file. Full pid path is <sentinel_pid_dir>/redis-sentinel_<redis_name>.pid. Default: /var/run
+# [*requirepass*]
+#   Configure Sentinel itself to require a password. By doing so, Sentinel will try to authenticate with the
+#   same password to all the other Sentinels, so Sentinels in a given group need to be configured with the same
+#   "requirepass" password. Check the following documentation for more info: https://redis.io/topics/sentinel
 # [*monitors*]
 #   Default is
 #
@@ -65,6 +69,7 @@ define redis::sentinel (
   $sentinel_pid_dir = '/var/run',
   $sentinel_run_dir = '/var/run/redis',
   $protected_mode   = undef,
+  $requirepass      = undef,
   $monitors         = {
     'mymaster' => {
       master_host             => '127.0.0.1',
