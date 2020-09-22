@@ -23,8 +23,10 @@ protected-mode <%= @protected_mode %>
 
 <% end -%>
 
-<% if @requirepass -%>requirepass <%= @requirepass %><% end -%>
+<% if @requirepass -%>
+requirepass <%= @requirepass %>
 
+<% end -%>
 <% if @announce_ip then -%>
 sentinel announce-ip <%= @announce_ip %>
 <% end -%>
