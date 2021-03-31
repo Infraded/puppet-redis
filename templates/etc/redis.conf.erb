@@ -96,9 +96,13 @@ databases <%= @redis_nr_dbs %>
 #
 #   Note: you can disable saving at all commenting all the "save" lines.
 
+<% if !@save.empty? -%>
 <% @save.each do |seconds, changes| %>
   save <%= seconds %> <%= changes %>
 <% end %>
+<% else -%>
+  save ""
+<% end -%>
 
 # Compress string objects using LZF when dump .rdb databases?
 # For default that's set to 'yes' as it's almost always a win.
