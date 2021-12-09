@@ -154,6 +154,7 @@ define redis::server (
   $running                       = true,
   $enabled                       = true,
   $requirepass                   = undef,
+  $redis_acl_users               = [],
   $maxclients                    = undef,
   $appendfsync_on_rewrite        = false,
   $aof_rewrite_percentage        = 100,
