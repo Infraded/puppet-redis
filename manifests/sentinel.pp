@@ -61,16 +61,17 @@
 #   Configure announce-port in Sentinel configuration.  Similarly when announce-port is provided,
 #   and is valid and non-zero, Sentinel will announce the specified TCP port.
 define redis::sentinel (
-  $ensure           = 'present',
-  $sentinel_name    = $name,
-  $sentinel_ip      = undef,
-  $sentinel_port    = 26379,
-  $sentinel_log_dir = '/var/log',
-  $sentinel_pid_dir = '/var/run',
-  $sentinel_run_dir = '/var/run/redis',
-  $protected_mode   = undef,
-  $requirepass      = undef,
-  $monitors         = {
+  $ensure             = 'present',
+  $sentinel_name      = $name,
+  $sentinel_ip        = undef,
+  $sentinel_port      = 26379,
+  $sentinel_log_dir   = '/var/log',
+  $sentinel_pid_dir   = '/var/run',
+  $sentinel_run_dir   = '/var/run/redis',
+  $protected_mode     = undef,
+  $requirepass        = undef,
+  $sentinel_acl_users = [],
+  $monitors           = {
     'mymaster' => {
       master_host             => '127.0.0.1',
       master_port             => 6379,
@@ -84,12 +85,12 @@ define redis::sentinel (
 # client-reconfig-script => '/var/redis/reconfig.sh',
     }
   },
-  $running          = true,
-  $enabled          = true,
-  $manage_logrotate = true,
-  $announce_ip      = undef,
-  $announce_port    = undef,
-  $sentinel_id      = undef,
+  $running            = true,
+  $enabled            = true,
+  $manage_logrotate   = true,
+  $announce_ip        = undef,
+  $announce_port      = undef,
+  $sentinel_id        = undef,
 ) {
   $sentinel_user              = $::redis::install::redis_user
   $sentinel_group             = $::redis::install::redis_group

@@ -239,6 +239,11 @@ slave-priority <%= @slave_priority %>
 # requirepass foobared
 <% if @requirepass -%>requirepass <%= @requirepass %><% end -%>
 
+# ACL users
+<% @redis_acl_users.each do |user_config| -%>
+user <%= user_config['name'] -%> <%= user_config['enabled'] -%> <%= user_config['commands'] -%> <%= user_config['keys'] -%> <%= user_config['channels'] -%> <%= user_config['password'] %>
+<% end -%>
+
 # Command renaming.
 #
 # It is possilbe to change the name of dangerous commands in a shared
