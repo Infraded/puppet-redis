@@ -32,6 +32,14 @@ requirepass <%= @requirepass %>
 user <%= user_config['name'] -%> <%= user_config['enabled'] -%> <%= user_config['commands'] -%> <%= user_config['keys'] -%> <%= user_config['channels'] -%> ><%= user_config['password'] %>
 <% end -%>
 
+<% if @sentinel-user then -%>
+sentinel sentinel-user <%= @sentinel-user %>
+<% end -%>
+
+<% if @sentinel-pass then -%>
+sentinel sentinel-pass <%= @sentinel-pass %>
+<% end -%>
+
 <% if @announce_ip then -%>
 sentinel announce-ip <%= @announce_ip %>
 <% end -%>

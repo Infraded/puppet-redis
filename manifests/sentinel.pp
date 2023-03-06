@@ -70,6 +70,8 @@ define redis::sentinel (
   $sentinel_run_dir   = '/var/run/redis',
   $protected_mode     = undef,
   $requirepass        = undef,
+  $sentinel_user      = undef,
+  $sentinel_pass      = undef,
   $sentinel_acl_users = [],
   $monitors           = {
     'mymaster' => {

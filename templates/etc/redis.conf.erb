@@ -224,6 +224,9 @@ dir <%= @redis_dir %>/redis_<%= @redis_name %>
 # masterauth <password>
 <% if @masterauth -%>masterauth <%= @masterauth %><% end -%>
 
+# masteruser <username>
+<% if @masteruser -%>masteruser <%= @masteruser %><% end -%>
+
 # When a slave lost the connection with the master, or when the replication
 # is still in progress, the slave can act in two different ways:
 #

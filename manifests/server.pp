@@ -178,6 +178,7 @@ define redis::server (
   $redis_disable_commands        = [],
   $slaveof                       = undef,
   $masterauth                    = undef,
+  $masteruser                    = undef,
   $slave_serve_stale_data        = true,
   $slave_read_only               = true,
   $slave_priority                = undef,
