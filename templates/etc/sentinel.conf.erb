@@ -32,12 +32,12 @@ requirepass <%= @requirepass %>
 user <%= user_config['name'] -%> <%= user_config['enabled'] -%> <%= user_config['commands'] -%> <%= user_config['keys'] -%> <%= user_config['channels'] -%> ><%= user_config['password'] %>
 <% end -%>
 
-<% if @sentinel-user then -%>
-sentinel sentinel-user <%= @sentinel-user %>
+<% if @sentinel_auth_user then -%>
+sentinel sentinel-user <%= @sentinel_auth_user %>
 <% end -%>
 
-<% if @sentinel-pass then -%>
-sentinel sentinel-pass <%= @sentinel-pass %>
+<% if @sentinel_auth_pass then -%>
+sentinel sentinel-pass <%= @sentinel_auth_pass %>
 <% end -%>
 
 <% if @announce_ip then -%>
