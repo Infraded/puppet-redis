@@ -185,6 +185,8 @@ define redis::server (
   $repl_timeout                  = 60,
   $repl_ping_slave_period        = 10,
   $repl_backlog_size             = undef,
+  $replica_announce_ip           = undef,
+  $replica_announce_port         = undef,
   $save                          = [],
   $hash_max_ziplist_entries      = 512,
   $hash_max_ziplist_value        = 64,
