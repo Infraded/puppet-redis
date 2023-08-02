@@ -65,15 +65,15 @@ define redis::sentinel (
   $sentinel_name      = $name,
   $sentinel_ip        = undef,
   $sentinel_port      = 26379,
-  $sentinel_log_dir   = '/var/log',
-  $sentinel_pid_dir   = '/var/run',
-  $sentinel_run_dir   = '/var/run/redis',
-  $protected_mode     = undef,
+  Stdlib::Absolutepath $sentinel_log_dir = '/var/log',
+  Stdlib::Absolutepath $sentinel_pid_dir = '/var/run',
+  Stdlib::Absolutepath $sentinel_run_dir = '/var/run/redis',
+  Optional[Enum['yes', 'no']] $protected_mode = undef,
   $requirepass        = undef,
   $sentinel_auth_user = undef,
   $sentinel_auth_pass = undef,
   $sentinel_acl_users = [],
-  $monitors           = {
+  Hash $monitors           = {
     'mymaster' => {
       master_host             => '127.0.0.1',
       master_port             => 6379,
@@ -81,34 +81,21 @@ define redis::sentinel (
       down_after_milliseconds => 30000,
       parallel-syncs          => 1,
       failover_timeout        => 180000,
-# optional
-# auth-pass => 'secret_Password',
-# notification-script => '/var/redis/notify.sh',
-# client-reconfig-script => '/var/redis/reconfig.sh',
-    }
+      # optional
+      # auth-pass => 'secret_Password',
+      # notification-script => '/var/redis/notify.sh',
+      # client-reconfig-script => '/var/redis/reconfig.sh',
+    },
   },
-  $running            = true,
-  $enabled            = true,
-  $manage_logrotate   = true,
+  Boolean $running = true,
+  Boolean $enabled = true,
+  Boolean $manage_logrotate = true,
   $announce_ip        = undef,
   $announce_port      = undef,
   $sentinel_id        = undef,
 ) {
   $sentinel_user              = $::redis::install::redis_user
   $sentinel_group             = $::redis::install::redis_group
-
-  # validate parameters
-  validate_absolute_path($sentinel_log_dir)
-  validate_absolute_path($sentinel_pid_dir)
-  validate_absolute_path($sentinel_run_dir)
-  validate_hash($monitors)
-  validate_bool($running)
-  validate_bool($enabled)
-  validate_bool($manage_logrotate)
-
-  if $protected_mode {
-    validate_re($protected_mode,['^no$', '^yes$'])
-  }
 
   $redis_install_dir = $::redis::install::redis_install_dir
   $sentinel_init_script = $::operatingsystem ? {
