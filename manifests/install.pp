@@ -33,7 +33,7 @@ class redis::install (
   $redis_group       = $::redis::params::redis_group,
   $download_base     = $::redis::params::download_base,) inherits redis {
   if ($redis_package == true) {
-    case $::operatingsystem {
+    case $facts['os']['family'] {
       'Debian', 'Ubuntu' : {
         package { 'redis-server': ensure => $redis_version, }
 
@@ -46,7 +46,7 @@ class redis::install (
         package { 'redis': ensure => $redis_version, }
 
         # The SLES DatabaseServer repository installs a conflicting logrotation configuration
-        if $::operatingsystem == 'SLES' {
+        if $facts['os']['family'] == 'SLES' {
           file { '/etc/logrotate.d/redis':
             ensure    => 'absent',
             subscribe => Package['redis'],
@@ -62,7 +62,7 @@ class redis::install (
     }
   } else {
     # install necessary packages for build.
-    case $::operatingsystem {
+    case $facts['os']['family'] {
       'Debian', 'Ubuntu' : {
         ensure_packages(['build-essential'])
         Package['build-essential'] -> Anchor['redis::prepare_build']
