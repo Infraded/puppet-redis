@@ -98,7 +98,7 @@ define redis::sentinel (
   $sentinel_group             = $::redis::install::redis_group
 
   $redis_install_dir = $::redis::install::redis_install_dir
-  $sentinel_init_script = $::operatingsystem ? {
+  $sentinel_init_script = $facts['os']['family'] ? {
     /(Debian|Ubuntu)/                                          => 'redis/etc/init.d/debian_redis-sentinel.erb',
     /(Fedora|RedHat|CentOS|OEL|OracleLinux|Amazon|Scientific)/ => 'redis/etc/init.d/redhat_redis-sentinel.erb',
     /(Gentoo)/                                                 => 'redis/etc/init.d/gentoo_redis-sentinel.erb',
@@ -115,7 +115,7 @@ define redis::sentinel (
   }
 
   # startup script
-  if ($::osfamily == 'RedHat' and versioncmp($::operatingsystemmajrelease, '7') >=0 and $::operatingsystem != 'Amazon') {
+  if ($::osfamily == 'RedHat' and versioncmp($facts['os']['release']['major'], '7') >=0 and $facts['os']['family'] != 'Amazon') {
     $service_file = "/usr/lib/systemd/system/redis-sentinel_${sentinel_name}.service"
     exec { "systemd_service_sentinel_${sentinel_name}_preset":
       command     => "/bin/systemctl preset redis-sentinel_${sentinel_name}.service",
