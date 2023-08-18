@@ -115,7 +115,7 @@ define redis::sentinel (
   }
 
   # startup script
-  if ($::osfamily == 'RedHat' and versioncmp($facts['os']['release']['major'], '7') >=0 and $facts['os']['family'] != 'Amazon') {
+  if ($facts['os']['family'] == 'RedHat' and versioncmp($facts['os']['release']['major'], '7') >=0 and $facts['os']['family'] != 'Amazon') {
     $service_file = "/usr/lib/systemd/system/redis-sentinel_${sentinel_name}.service"
     exec { "systemd_service_sentinel_${sentinel_name}_preset":
       command     => "/bin/systemctl preset redis-sentinel_${sentinel_name}.service",
