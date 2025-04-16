@@ -275,7 +275,7 @@ slave-priority <%= @slave_priority %>
 
 # ACL users
 <% @redis_acl_users.each do |user_config| -%>
-user <%= user_config['name'] -%> <%= user_config['enabled'] -%> <%= user_config['commands'] -%> <%= user_config['keys'] -%> <%= user_config['channels'] -%> ><%= user_config['password'] %>
+user <%= user_config['name'] -%> <%= user_config['enabled'] -%><%- if user_config.key?('commands') -%> <%= user_config['commands'] -%><%- end -%><%- if user_config.key?('keys') -%> <%= user_config['keys'] -%><%- end -%><%- if user_config.key?('channels') -%> <%= user_config['channels'] -%><%- end -%><%- if user_config.key?('password') -%> ><%= user_config['password'] -%><%- end %>
 <% end -%>
 
 # Command renaming.
